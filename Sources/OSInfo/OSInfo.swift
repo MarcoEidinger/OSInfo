@@ -30,7 +30,7 @@ public extension OSInfo {
             return UIDevice.current.systemVersion
             #elseif os(watchOS)
             return WKInterfaceDevice.current().systemVersion
-            #elseif os(OSX) || os(Linux)
+            #elseif os(OSX) || os(Linux) || os(Windows)
             return "\(ProcessInfo.processInfo.operatingSystemVersion.majorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.minorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.patchVersion)"
             //return ProcessInfo.processInfo.operatingSystemVersionString
             #else
@@ -44,7 +44,7 @@ public extension OSInfo {
             return UIDevice.current.systemVersion
             #elseif os(watchOS)
             return WKInterfaceDevice.current().systemVersion
-            #elseif os(OSX) || os(Linux)
+            #elseif os(OSX) || os(Linux) || os(Windows)
             return "\(ProcessInfo.processInfo.operatingSystemVersion.majorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.minorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.patchVersion)"
             //return ProcessInfo.processInfo.operatingSystemVersionString
             #else
@@ -63,7 +63,9 @@ public extension OSInfo {
             #elseif os(tvOS)
             return UIDevice.current.systemName
             #elseif os(Linux)
-            return "linux"
+            return "Linux"
+            #elseif os(Windows)
+            return "Windows"
             #else
             return DeviceDataValue.unknown
             #endif
@@ -76,7 +78,9 @@ public extension OSInfo {
             #elseif os(OSX)
             return "macOS"
             #elseif os(Linux)
-            return "linux"
+            return "Linux"
+            #elseif os(Windows)
+            return "Windows"
             #else
             return DeviceDataValue.unknown
             #endif
