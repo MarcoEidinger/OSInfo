@@ -73,3 +73,14 @@ Alternative https://github.com/lidongx/Adapty/blob/01ef0c4d6f9147cf62d19b312a110
         #endif
     }
 ```
+
+General Info: https://nshipster.com/swift-system-version-checking/
+
+To be tested on
+- iPhone / iOS
+- iPad / iPadOS
+- MacCatalyst
+- Mac
+- Linux
+- tvOS
+- watchOS
