@@ -84,3 +84,23 @@ To be tested on
 - Linux
 - tvOS
 - watchOS
+
+
+P.S.: PLCrashReporter handles it like this (https://github.com/microsoft/plcrashreporter/blob/b1a342da19ed9b3af61ea2efa7656c2af30aeb7c/Source/PLCrashLogWriter.m#L459)
+
+```swift
+#if TARGET_OS_IPHONE || TARGET_OS_MAC
+    /* iOS, tvOS, macOS and Mac Catalyst */
+    {
+        NSProcessInfo *processInfo = [NSProcessInfo processInfo];
+        NSOperatingSystemVersion systemVersion = processInfo.operatingSystemVersion;
+        NSString *systemVersionString = [NSString stringWithFormat:@"%ld.%ld", (long)systemVersion.majorVersion, (long)systemVersion.minorVersion];
+        if (systemVersion.patchVersion > 0) {
+            systemVersionString = [systemVersionString stringByAppendingFormat:@".%ld", (long)systemVersion.patchVersion];
+        }
+        plprotobuf_cbinary_data_nsstring_init(&writer->system_info.version, systemVersionString);
+    }
+#else
+#error Unsupported Platform
+#endif
+```
