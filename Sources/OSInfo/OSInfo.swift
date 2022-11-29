@@ -22,7 +22,7 @@ public struct OSInfo {
 public extension OSInfo {
     var oSVersion: String {
         if targetAware {
-            if #available(iOS 13.0, macOS 10.15, *) {
+            if #available(iOS 13.0, macOS 10.15, watchOS 6.0, *) {
                 // true when a Mac app built with Mac Catalyst or an iOS app running on Apple silicon
                 if ProcessInfo.processInfo.isMacCatalystApp {
                     return operatingSystemVersionFromProcess()
@@ -70,6 +70,8 @@ public extension OSInfo {
             return UIDevice.current.systemName
             #elseif os(tvOS)
             return UIDevice.current.systemName
+            #elseif os(watchOS)
+            return WKInterfaceDevice.current().systemName
             #elseif os(Linux)
             return "Linux"
             #elseif os(Windows)
@@ -83,6 +85,8 @@ public extension OSInfo {
             return UIDevice.current.systemName
             #elseif os(tvOS)
             return UIDevice.current.systemName
+            #elseif os(watchOS)
+            return WKInterfaceDevice.current().systemName
             #elseif os(OSX)
             return "macOS"
             #elseif os(Linux)
