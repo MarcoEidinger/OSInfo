@@ -3,8 +3,8 @@ import XCTest
 
 final class OSInfoTests: XCTestCase {
     func testNameAndVersion() throws {
-        print(OSInfo.shared.oSName)
-        print(OSInfo.shared.oSVersion)
+        print(OSInfo.shared.name)
+        print(OSInfo.shared.version)
         XCTAssertTrue(true)
     }
 }

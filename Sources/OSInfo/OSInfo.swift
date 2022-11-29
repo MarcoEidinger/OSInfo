@@ -17,9 +17,10 @@ public struct OSInfo {
         self.mac4mac = mac4mac
     }
 
-    public var oSVersion: String {
+    public var version: String {
         if mac4mac {
-            if #available(iOS 13.0, macOS 10.15, watchOS 6.0, *) {
+            #if os(macOS) || os(iOS)
+            if #available(iOS 13.0, macOS 10.15, *) {
                 // true when a Mac app built with Mac Catalyst or an iOS app running on Apple silicon
                 if ProcessInfo.processInfo.isMacCatalystApp {
                     return operatingSystemVersionFromProcess()
@@ -27,6 +28,7 @@ public struct OSInfo {
             } else {
                 () // ProcessInfo.processInfo.isMacCatalystApp might not be available or running app might be native macOS or on a complete different platform so lets continue
             }
+            #endif
             #if os(macOS) || targetEnvironment(macCatalyst)
                 return operatingSystemVersionFromProcess()
             #elseif os(iOS)
@@ -58,7 +60,7 @@ public struct OSInfo {
         }
     }
 
-    public var oSName: String {
+    public var name: String {
         if mac4mac {
             #if os(macOS) || targetEnvironment(macCatalyst)
                 return "macOS"
