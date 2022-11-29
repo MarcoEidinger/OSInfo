@@ -1,8 +1,8 @@
-#if os(OSX)
-#else
+import Foundation
+
+#if canImport(UIKit)
 import UIKit
 #endif
-import Foundation
 
 #if os(watchOS)
 import WatchKit
