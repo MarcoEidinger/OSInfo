@@ -26,7 +26,8 @@ public extension OSInfo {
         #elseif os(watchOS)
         return WKInterfaceDevice.current().systemVersion
         #elseif os(OSX)
-        return ProcessInfo.processInfo.operatingSystemVersionString
+        return "\(ProcessInfo.processInfo.operatingSystemVersion.majorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.minorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.patchVersion)"
+        //return ProcessInfo.processInfo.operatingSystemVersionString
         #else
         return DeviceDataValue.unknown
         #endif
