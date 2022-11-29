@@ -1,12 +1,16 @@
 # OSInfo
 Cross-platform Swift Package to determine OS name and version on which the app is running
 
-Examples:
-- running on iOS
-- running on iPad:
-- running on macOS
-- running on macOS as macCatalyst
-- running on 
+| Destination                                                  | OSInfo.oSName | OSInfo(targetAware: true).oSName                             |
+| ------------------------------------------------------------ | ------------- | ------------------------------------------------------------ |
+| iPhone                                                       | iOS           | iOS                                                          |
+| iPad                                                         | iPadOS        | iPadOS                                                       |                                                    |
+| Mac (Designed for iPad)<br /><br />this might be a Mac app built with Mac Catalyst  or an iOS app running on Apple silicon. | iPadOS        | **macOS** |
+| Mac (Mac Catalyst)                                           | iPadOS        | **macOS**   
+| Mac                                                         | macOS         | macOS                                                      |
+| TV                                                           | tvOS          | tvOS                                                         |
+| Watch                                                        | watchOS       | watchOS                                                      |
+| Linux                                                        | ???           | ???                                                          |
 
 https://github.com/jonathanwong/teal-swift/blob/992c185423d907ed86aa3148e0939aca11b96ae1/tealium/core/devicedata/DeviceDataOSInfo.swift
 

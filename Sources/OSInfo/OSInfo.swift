@@ -22,16 +22,24 @@ public struct OSInfo {
 public extension OSInfo {
     var oSVersion: String {
         if targetAware {
+            if #available(iOS 13.0, macOS 10.15, *) {
+                // true when a Mac app built with Mac Catalyst or an iOS app running on Apple silicon
+                if ProcessInfo.processInfo.isMacCatalystApp {
+                    return operatingSystemVersionFromProcess()
+                }
+            } else {
+                () // ProcessInfo.processInfo.isMacCatalystApp might not be available or running app might be native macOS or on a complete different platform so lets continue
+            }
             #if os(macOS) || targetEnvironment(macCatalyst)
-            return "\(ProcessInfo.processInfo.operatingSystemVersion.majorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.minorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.patchVersion)"
+            return operatingSystemVersionFromProcess()
             #elseif os(iOS)
             return UIDevice.current.systemVersion
             #elseif os(tvOS)
             return UIDevice.current.systemVersion
             #elseif os(watchOS)
             return WKInterfaceDevice.current().systemVersion
-            #elseif os(OSX) || os(Linux) || os(Windows)
-            return "\(ProcessInfo.processInfo.operatingSystemVersion.majorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.minorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.patchVersion)"
+            #elseif os(Linux) || os(Windows)
+            return operatingSystemVersionFromProcess()
             //return ProcessInfo.processInfo.operatingSystemVersionString
             #else
             return DeviceDataValue.unknown
@@ -44,11 +52,11 @@ public extension OSInfo {
             return UIDevice.current.systemVersion
             #elseif os(watchOS)
             return WKInterfaceDevice.current().systemVersion
-            #elseif os(OSX) || os(Linux) || os(Windows)
-            return "\(ProcessInfo.processInfo.operatingSystemVersion.majorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.minorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.patchVersion)"
+            #elseif os(Linux) || os(Windows)
+            return operatingSystemVersionFromProcess()
             //return ProcessInfo.processInfo.operatingSystemVersionString
             #else
-            return DeviceDataValue.unknown
+            fatalError("not supported")
             #endif
         }
 
@@ -67,7 +75,7 @@ public extension OSInfo {
             #elseif os(Windows)
             return "Windows"
             #else
-            return DeviceDataValue.unknown
+            fatalError("not supported")
             #endif
         } else {
             // only available on iOS and tvOS
@@ -82,9 +90,16 @@ public extension OSInfo {
             #elseif os(Windows)
             return "Windows"
             #else
-            return DeviceDataValue.unknown
+            fatalError("not supported")
             #endif
         }
-
+    }
+    
+    private func operatingSystemVersionFromProcess() -> String {
+        var osVersion: String = "\(ProcessInfo.processInfo.operatingSystemVersion.majorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.minorVersion)"
+        if ProcessInfo.processInfo.operatingSystemVersion.patchVersion > 0 {
+            osVersion += ".\(ProcessInfo.processInfo.operatingSystemVersion.patchVersion)"
+        }
+        return osVersion
     }
 }
