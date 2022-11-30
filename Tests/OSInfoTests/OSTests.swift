@@ -38,31 +38,6 @@ final class OSTests: XCTestCase {
         #endif
     }
 
-//    func testParseableVersion() throws {
-//        let version = OS(underlyingMacOS: false).parseableVersion
-//
-//        #if os(watchOS)
-//            XCTAssertEqual(version, WKInterfaceDevice.current().systemVersion)
-//        #elseif os(tvOS)
-//            XCTAssertEqual(version, UIDevice.current.systemVersion)
-//        #elseif os(Linux)
-//            XCTAssertEqual(version, ProcessInfo.processInfo.operatingSystemVersion.description)
-//        #elseif os(Windows)
-//            XCTAssertEqual(version, ProcessInfo.processInfo.operatingSystemVersion.description)
-//        #elseif os(macOS)
-//            XCTAssertEqual(version, ProcessInfo.processInfo.operatingSystemVersion.description)
-//        #elseif os(iOS)
-//            XCTAssertEqual(version, UIDevice.current.systemVersion)
-//        #else
-//            XCTFail("Not supported")
-//        #endif
-//
-//        let underlyingVersion = OS(underlyingMacOS: true).parseableVersion
-//        #if targetEnvironment(macCatalyst)
-//            XCTAssertNotEqual(version, underlyingVersion)
-//        #endif
-//    }
-
     func testDisplayVersion() {
         let version = OS(underlyingMacOS: false).displayVersion
 
@@ -95,12 +70,10 @@ final class OSTests: XCTestCase {
     func testFakeAndRatherObserveLogs() throws {
         print("OS.current.name: \(OS.current.name)")
         print("OS.current.version: \(OS.current.version.description)")
-//        print("OS.current.parseableVersion: \(OS.current.parseableVersion)")
         print("OS.current.displayVersion: \(OS.current.displayVersion)")
 
         print("OS().name: \(OS().name)")
         print("OS().version: \(OS().version.description)")
-//        print("OS().parseableVersion: \(OS().parseableVersion)")
         print("OS.().displayVersion: \(OS().displayVersion)")
         XCTAssertTrue(true)
     }

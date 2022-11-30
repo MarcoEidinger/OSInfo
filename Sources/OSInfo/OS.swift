@@ -20,88 +20,12 @@ public struct OS {
     public init(underlyingMacOS: Bool = false) {
         self.underlyingMacOS = underlyingMacOS
     }
+    
+    /**
+     Known as `operatingSystemVersionString` is human readable, localized, and is appropriate for displaying to the user. This string is not appropriate for parsing.
 
-    public var iOSFamily: Bool {
-        #if os(iOS)
-            return true
-        #else
-            return false
-        #endif
-    }
-
-//    public var isIPhoneOS: Bool {
-//        #if os(iOS)
-//            return !isIPadOS
-//        #else
-//            return false
-//        #endif
-//    }
-//
-//    public var isIPadOS: Bool {
-//        #if os(iOS)
-//            if UIDevice.current.systemName == "iPadOS" {
-//                return true
-//            } else {
-//                return false
-//            }
-//        #else
-//            return false
-//        #endif
-//    }
-//
-//    public var isMacCatalyst: Bool {
-//        #if targetEnvironment(macCatalyst) || os(iOS)
-//            if #available(iOS 13.0, macOS 10.15, *) {
-//                return ProcessInfo.processInfo.isMacCatalystApp
-//            } else {
-//                return true
-//            }
-//        #else
-//            return false
-//        #endif
-//    }
-//
-//    public var isMacOS: Bool {
-//        #if os(macOS)
-//            return true
-//        #else
-//            return false
-//        #endif
-//    }
-//
-//    public var isWatchOS: Bool {
-//        #if os(watchOS)
-//            return true
-//        #else
-//            return false
-//        #endif
-//    }
-//
-//    public var isLinux: Bool {
-//        #if os(Linux)
-//            return true
-//        #else
-//            return false
-//        #endif
-//    }
-//
-//    public var isWindows: Bool {
-//        #if os(Windows)
-//            return true
-//        #else
-//            return false
-//        #endif
-//    }
-
-    public var appleFamily: Bool {
-        #if os(Linux) || os(Windows)
-            return false
-        #else
-            return true
-        #endif
-    }
-
-    /// Known as `operatingSystemVersionString` is human readable, localized, and is appropriate for displaying to the user. This string is not appropriate for parsing.
+      - Warning: does not take `underlyingMacOS=false` into consideration and will return macOS information for a Mac Catalyst app
+     */
     public var displayVersion: String {
         return ProcessInfo.processInfo.operatingSystemVersionString
     }
@@ -128,47 +52,6 @@ public struct OS {
 
         return ProcessInfo.processInfo.operatingSystemVersion
     }
-
-//    /**
-//     Parsable OS version string (*major*.*minor*.*optionalPatch*) for **Apple platforms**.
-//
-//      - Warning: For Linux and Windows you might prefer `displayVersion`
-//     */
-//    public var parseableVersion: String {
-//        if underlyingMacOS {
-//            // Mac Catalyst || Mac Designed for iPad
-//            #if targetEnvironment(macCatalyst) || os(iOS)
-//                if #available(iOS 13.0, macOS 10.15, *) {
-//                    // true when a Mac app built with Mac Catalyst or an iOS app running on Apple silicon
-//                    if ProcessInfo.processInfo.isMacCatalystApp {
-//                        return operationSystemVersionFromPlist() ?? operatingSystemVersionFromProcess()
-//                    }
-//                }
-//            #endif
-//            #if os(macOS) // Mac
-//                return operatingSystemVersionFromProcess()
-//            #elseif os(iOS) // iPhone or iPad
-//                return operatingSystemVersionFromProcess()
-//            #endif
-//        } else {
-//            // only available on iOS and tvOS
-//            #if os(iOS) // iPhone || iPad || Mac Catalyst || Mac Designed for iPad
-//                return UIDevice.current.systemVersion
-//            #elseif os(macOS) // Mac
-//                return operatingSystemVersionFromProcess()
-//            #endif
-//        }
-//
-//        #if os(tvOS)
-//            return UIDevice.current.systemVersion
-//        #elseif os(watchOS)
-//            return operatingSystemVersionFromProcess()
-//        #elseif os(Linux) || os(Windows)
-//            return operatingSystemVersionFromProcess()
-//        #else
-//            return operatingSystemVersionFromProcess()
-//        #endif
-//    }
 
     /// Platform-specific string, e.g. "iOS", "iPadOS", "macOS", "watchOS", "tvOS", "Linux", "Windows"
     public var name: String {
@@ -202,6 +85,24 @@ public struct OS {
             }
         #else
             return "Unknown"
+        #endif
+    }
+    
+    /// True for compilation condition `os(iOS)`
+    public var iOSFamily: Bool {
+        #if os(iOS)
+            return true
+        #else
+            return false
+        #endif
+    }
+
+    /// False for compilation condition `os(Linux)` or  `os(Windows)`
+    public var appleFamily: Bool {
+        #if os(Linux) || os(Windows)
+            return false
+        #else
+            return true
         #endif
     }
 

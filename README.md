@@ -33,7 +33,7 @@ print(OS(underlyingMacOS: false).version.description) // "16.1"
 
 // example for running on Linux
 print(OS.current.name) // Linux
-print(OS.current.version) // Ubuntu 22.04.1 LTS
+print(OS.current.version) // 5.15
 print(OS.current.displayVersion) // Ubuntu 22.04.1 LTS
 ```
 
