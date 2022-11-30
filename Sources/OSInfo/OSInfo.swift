@@ -35,15 +35,12 @@ public struct OSInfo {
                     if ProcessInfo.processInfo.isMacCatalystApp {
                         return operationSystemVersionFromPlist() ?? operatingSystemVersionFromProcess()
                     }
-                } else {
-                    () // might be a native macOS app so lets continue
                 }
             #endif
             #if os(macOS) // Mac
                 return operatingSystemVersionFromProcess()
             #elseif os(iOS) // iPhone or iPad
             return operatingSystemVersionFromProcess()
-                //return UIDevice.current.systemVersion
             #endif
         } else {
             // only available on iOS and tvOS
@@ -61,7 +58,7 @@ public struct OSInfo {
         #elseif os(Linux) || os(Windows)
             return ProcessInfo.processInfo.operatingSystemVersionString
         #else
-            fatalError("not supported")
+            return ""
         #endif
     }
     
@@ -82,8 +79,6 @@ public struct OSInfo {
                     if ProcessInfo.processInfo.isMacCatalystApp {
                         return "macOS"
                     }
-                } else {
-                    () // might be native macOS so lets continue
                 }
                 #if os(macOS)
                     return "macOS"
@@ -98,7 +93,7 @@ public struct OSInfo {
                 #endif
             }
         #else
-            fatalError("not supported")
+            return "Unknown"
         #endif
     }
     
