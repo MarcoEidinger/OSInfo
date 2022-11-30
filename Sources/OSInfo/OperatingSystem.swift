@@ -9,9 +9,9 @@ import Foundation
 #endif
 
 /// A unified, cross-platform API to  determine OS name and version on which the app is running
-public struct OSInfo {
+public struct OperatingSystem {
     /// Singleton that will return the underlying macOS version / name for a Mac Catalyst / Mac Designed for iPad application
-    public static let shared = OSInfo(underlyingMacOS: true)
+    public static let current = OperatingSystem(underlyingMacOS: true)
 
     private var underlyingMacOS: Bool = false
     
