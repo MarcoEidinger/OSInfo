@@ -29,7 +29,8 @@ public struct OS {
     public var displayVersion: String {
         return ProcessInfo.processInfo.operatingSystemVersionString
     }
-
+    
+    /// Parseable version of the currently executing operating system (including major, minor, and patch version numbers).
     public var version: OperatingSystemVersion {
         if underlyingMacOS {
             // Mac Catalyst || Mac Designed for iPad
@@ -125,6 +126,11 @@ public struct OS {
 }
 
 extension OperatingSystemVersion: CustomStringConvertible {
+    /// SemVer string (format of "*major*.*minor*.*patch*")
+    ///
+    /// omits patch version number if it is zero
+    ///
+    /// Examples: "13.0.1", "16.1"
     public var description: String {
         var osVersion: String = "\(majorVersion).\(minorVersion)"
         if patchVersion > 0 {
