@@ -14,7 +14,7 @@ This package provides a unified API so that you don't need to worry about the va
 - WatchKit's `WKInterfaceDevice.current().systemName` and `.systemVersion`
 - Foundations's `ProcessInfo.processInfo.operatingSystemVersionString` and `.operatingSystemVersion`
 
-Here are examples based on the destination:
+Here are `name` examples based on the destination:
 
 | Destination                                                  | OSInfo.shared.name                          | OSInfo().name |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------- |
@@ -25,13 +25,17 @@ Here are examples based on the destination:
 | Mac                                                         | macOS                                                      | macOS         |
 | TV                                                           | tvOS                                                         | tvOS          |
 | Watch                                                        | watchOS                                                      | watchOS       |
-| Linux                                                        | ???                                                          | ???           |
-Windows                                                      | ???           | ??? | 
+| Linux                                                        | Linux                                                          | Linux           |
+Windows                                                      | Windows           | Windows | 
 
-This package also provides an option to either get the underlying macOS version or the "iOS support version" in case of a Mac Catalyst / Mac Designed for iPad application.
+This package also provides an option for Mac Catalyst / Mac Designed for iPad applications to get either the "iOS support version" or the underlying macOS version.
 
 Note:
-- `OSInfo()` is equivalent to `OSInfo(underlyingMacOS: false)`
 - `OSInfo.shared` is equivalent to `OSInfo(underlyingMacOS: true)`
+- `OSInfo()` is equivalent to `OSInfo(underlyingMacOS: false)`
+
+
+`version` returns a parsable string (*major*.*minor*.*optionalPatch*) for Apple platforms but for Linux and Windows the output is human readable, localized, and optimized for displaying to the user. Hence, the string is not appropriate for parsing on those two platforms.
+
 
 If you are more interesting on how to compare versions then I recommend the article [Swift System Version Checking](https://nshipster.com/swift-system-version-checking/)

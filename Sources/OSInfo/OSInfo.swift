@@ -8,15 +8,24 @@ import Foundation
     import WatchKit
 #endif
 
+/// A unified, cross-platform API to  determine OS name and version on which the app is running
 public struct OSInfo {
+    /// Singleton that will return the underlying macOS version / name for a Mac Catalyst / Mac Designed for iPad application
     public static let shared = OSInfo(underlyingMacOS: true)
 
     private var underlyingMacOS: Bool = false
-
+    
+    /// Initializer
+    /// - Parameter underlyingMacOS: set to true if want the underlying macOS version / name for a Mac Catalyst / Mac Designed for iPad applications. Otherwise the "iOS support version" and respective OS name is used, e.g. iPadOS 16.1
     public init(underlyingMacOS: Bool = false) {
         self.underlyingMacOS = underlyingMacOS
     }
-
+    
+    /**
+     Parsable OS version string (*major*.*minor*.*optionalPatch*) for **Apple platforms**.
+     
+      - Warning: For Linux and Windows the output is human readable, localized, and optimized for displaying to the user. Hence, the string is not appropriate for parsing
+     */
     public var version: String {
         if underlyingMacOS {
             // Mac Catalyst || Mac Designed for iPad
@@ -55,7 +64,8 @@ public struct OSInfo {
             fatalError("not supported")
         #endif
     }
-
+    
+    /// Platform-specific string, e.g. "iOS", "iPadOS", "macOS", "watchOS", "tvOS", "Linux", "Windows"
     public var name: String {
         #if os(tvOS)
             return UIDevice.current.systemName
