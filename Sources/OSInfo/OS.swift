@@ -20,7 +20,7 @@ public struct OS {
     public init(underlyingMacOS: Bool = false) {
         self.underlyingMacOS = underlyingMacOS
     }
-    
+
     /**
      Known as `operatingSystemVersionString` is human readable, localized, and is appropriate for displaying to the user. This string is not appropriate for parsing.
 
@@ -87,7 +87,7 @@ public struct OS {
             return "Unknown"
         #endif
     }
-    
+
     /// True for compilation condition `os(iOS)`
     public var iOSFamily: Bool {
         #if os(iOS)
