@@ -1,12 +1,25 @@
 # OSInfo
 
-Cross-platform Swift Package to determine OS name and version on which the app is running
+Cross-platform Swift Package to determine the operating system `name` and `version` on which the app is running
 
 ```swift
 import OSInfo
 
-print(OperatingSystem.current.name) // iOS
-print(OperatingSystem.current.version) // 16.1
+// example for running on iPhone
+print(OS.current.name) // iOS
+print(OS.current.version) // 16.1
+
+// example for running on Apple Watch
+print(OS.current.name) // watchOS
+print(OS.current.version) // 9.1
+
+// example for running on Mac
+print(OS.current.name) // macOS
+print(OS.current.version) // 13.1
+
+// example for running on Linux
+print(OS.current.name) // Linux
+print(OS.current.version) // Ubuntu 22.04.1 LTS
 ```
 
 This package provides a unified API so that you don't need to worry about the various underlying APIs like
@@ -14,9 +27,9 @@ This package provides a unified API so that you don't need to worry about the va
 - WatchKit's `WKInterfaceDevice.current().systemName` and `.systemVersion`
 - Foundations's `ProcessInfo.processInfo.operatingSystemVersionString` and `.operatingSystemVersion`
 
-Here are `name` examples based on the destination:
+Here are `name` examples based on the destination. One key aspect of this package is that it provides an option for Mac Catalyst / Mac Designed for iPad applications to get either the "iOS support version" or the underlying macOS version.
 
-| Destination                                                  | OperatingSystem.shared.name                          | OperatingSystem().name |
+| Destination                                                  | OS.shared.name                          | OS().name |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------- |
 | iPhone                                                       | iOS                                                          | iOS           |
 | iPad                                                         | iPadOS                                                       | iPadOS        |
@@ -28,14 +41,9 @@ Here are `name` examples based on the destination:
 | Linux                                                        | Linux                                                          | Linux           |
 Windows                                                      | Windows           | Windows | 
 
-This package also provides an option for Mac Catalyst / Mac Designed for iPad applications to get either the "iOS support version" or the underlying macOS version.
-
 Note:
-- `OperatingSystem.current` is equivalent to `OperatingSystem(underlyingMacOS: true)`
-- `OperatingSystem()` is equivalent to `OperatingSystem(underlyingMacOS: false)`
+- `OS.current` is equivalent to `OS(underlyingMacOS: true)`
+- `OS()` is equivalent to `OS(underlyingMacOS: false)`
 
 
 `version` returns a parsable string (*major*.*minor*.*optionalPatch*) for Apple platforms but for Linux and Windows the output is human readable, localized, and optimized for displaying to the user. Hence, the string is not appropriate for parsing on those two platforms.
-
-
-If you are more interesting on how to compare versions then I recommend the article [Swift System Version Checking](https://nshipster.com/swift-system-version-checking/)
