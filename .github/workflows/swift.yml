@@ -21,6 +21,24 @@ jobs:
     - name: Run tests
       run: swift test -v
       
+  build-ios:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build & Test
+      run: xcodebuild -scheme OSInfo -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14' clean build test
+
+  build-maccatalyst:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build & Test
+      run: xcodebuild -scheme OSInfo -sdk macosx -destination 'platform=macOS,variant=Mac Catalyst' clean build test
+
   build-linux:
   
       runs-on: ubuntu-latest
