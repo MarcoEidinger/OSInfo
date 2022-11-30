@@ -50,8 +50,7 @@ public struct OSInfo {
         #elseif os(watchOS)
             return WKInterfaceDevice.current().systemVersion
         #elseif os(Linux) || os(Windows)
-            return operatingSystemVersionFromProcess()
-        // return ProcessInfo.processInfo.operatingSystemVersionString
+            return ProcessInfo.processInfo.operatingSystemVersionString
         #else
             fatalError("not supported")
         #endif
