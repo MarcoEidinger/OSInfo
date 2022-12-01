@@ -67,7 +67,7 @@ final class OSTests: XCTestCase {
         #endif
     }
 
-    func testFakeAndRatherObserveLogs() throws {
+    func testManualVerification() throws {
         print("OS.current.name: \(OS.current.name)")
         print("OS.current.version: \(OS.current.version.description)")
         print("OS.current.displayVersion: \(OS.current.displayVersion)")
@@ -75,6 +75,5 @@ final class OSTests: XCTestCase {
         print("OS().name: \(OS().name)")
         print("OS().version: \(OS().version.description)")
         print("OS.().displayVersion: \(OS().displayVersion)")
-        XCTAssertTrue(true)
     }
 }
