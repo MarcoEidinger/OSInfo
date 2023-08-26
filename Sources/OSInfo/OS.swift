@@ -50,9 +50,9 @@ public struct OS {
         return ProcessInfo.processInfo.operatingSystemVersion
     }
 
-    /// Platform-specific string, e.g. "iOS", "iPadOS", "macOS", "watchOS", "tvOS", "Linux", "Windows"
+    /// Platform-specific string, e.g. "iOS", "iPadOS", "macOS", "watchOS", "tvOS", "visionOS", "Linux", "Windows"
     public var name: String {
-        #if os(tvOS)
+        #if os(tvOS) || os(visionOS)
             return UIDevice.current.systemName
         #elseif os(watchOS)
             return WKInterfaceDevice.current().systemName
