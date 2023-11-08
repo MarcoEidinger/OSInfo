@@ -72,6 +72,10 @@ public struct OS {
                 }
             }
             return UIDevice.current.systemName
+        #elseif os(WASI) // Web Assembly
+            return "Web"
+        #elseif os(PS4) // Playstation
+            return "Playstation"
         #else
             return "Unknown"
         #endif
