@@ -72,6 +72,8 @@ public struct OS {
                 }
             }
             return UIDevice.current.systemName
+        #elseif os(WASI) // Web Assembly
+            return "Web"
         #else
             return "Unknown"
         #endif
