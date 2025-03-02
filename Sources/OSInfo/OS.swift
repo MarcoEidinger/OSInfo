@@ -9,7 +9,7 @@ import Foundation
 #endif
 
 /// A unified, cross-platform API to  determine OS name and version on which the app is running
-public struct OS {
+public struct OS: Sendable {
     // MARK: public variables
 
     /// Singleton that will return the underlying macOS version / name for a running Mac Catalyst / Mac Designed for iPad application
